@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { startNewGame, move, selectGameState } from "../gameLogicSlice";
+import { move, selectGameState } from "../gameLogicSlice";
 import styles from "./Game.module.css";
 import { useEffect } from "react";
 
@@ -32,7 +32,7 @@ export function Game() {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className={styles.game_container}>
       <div className={styles.row}>
         {gameState.map((row, xIndex) => (
           <div key={`x-${xIndex}`}>

@@ -1,3 +1,13 @@
+.container {
+  margin-bottom: 20px;
+}
+
+.game_container {
+  padding: 2px 3px;
+  background-color: rgb(183, 183, 183);
+  border-radius: 2px;
+}
+
 .row {
   display: flex;
   align-items: center;
@@ -8,12 +18,14 @@
   width: 1rem;
   padding: 1rem;
   margin: 5px 3px;
-  background-color: rgb(9, 63, 180);
+  color: white;
+  background-color: rgb(202, 196, 236);
   text-align: center;
   border-radius: 2px;
   font-weight: 700;
   line-height: 1rem;
   font-size: 16px;
+  transition-duration: 1s;
 }
 
 .row > button {
@@ -50,11 +62,15 @@
 }
 
 .textbox {
-  font-size: 32px;
+  font-size: 20px;
   padding: 2px;
-  width: 64px;
+  width: 40px;
   text-align: center;
   margin-right: 4px;
+}
+.textbox:focus {
+  color: transparent;
+  text-shadow: 0px 0px 0px #666;
 }
 
 .button:hover,

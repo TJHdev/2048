@@ -5,3 +5,11 @@ export enum GameState {
   "won",
   "lost",
 }
+
+export interface FormValues {
+  width: number;
+  height: number;
+  obstacles: number;
+}
+
+export type FormKeys = keyof FormValues;

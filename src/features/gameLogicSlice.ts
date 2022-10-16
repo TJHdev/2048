@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { isEqual } from "lodash";
+import { isEqual, clamp } from "lodash";
 import { RootState } from "../app/store";
 import {
   combineLine,
@@ -8,15 +8,13 @@ import {
   getRotatedGrid,
   placeValueInRandomAvailableCell,
 } from "./gameHelpers";
-import { Direction, GridState, GameState } from "./types";
+import { Direction, GridState, GameState, FormValues } from "./types";
 
 export interface GameReducerState {
   gridState: GridState;
   gameState: GameState;
   turnNumber: number;
-  formWidth: number;
-  formHeight: number;
-  formObstacles: number;
+  form: FormValues;
 }
 
 const initialObstacles = 0;
@@ -26,6 +24,12 @@ const initialGrid = placeValueInRandomAvailableCell({
   grid: createNewGrid(initialWidth, initialHeight),
   value: 2,
 });
+
+const formMinMaxValues = {
+  width: { min: 4, max: 10 },
+  height: { min: 4, max: 10 },
+  obstacles: { min: 0, max: 4 },
+};
 
 const initialState: GameReducerState = {
   // gridState: [
@@ -44,21 +48,19 @@ const initialState: GameReducerState = {
   gridState: initialGrid,
   turnNumber: 1,
   gameState: GameState.playing,
-  formWidth: initialWidth,
-  formHeight: initialHeight,
-  formObstacles: initialObstacles,
+  form: {
+    width: initialWidth,
+    height: initialHeight,
+    obstacles: initialObstacles,
+  },
 };
 
 export const gameLogicSlice = createSlice({
   name: "gameLogic",
   initialState,
   reducers: {
-    startNewGame: (
-      state,
-      action: PayloadAction<{ width?: number; height?: number }>
-    ) => {
-      const { width, height } = action.payload;
-      const newGrid = createNewGrid(width, height);
+    startNewGame: (state) => {
+      const newGrid = createNewGrid(state.form.width, state.form.height);
       state.gridState = placeValueInRandomAvailableCell({
         grid: newGrid,
         value: 2,
@@ -91,12 +93,23 @@ export const gameLogicSlice = createSlice({
       }
       return state;
     },
+
+    updateFormValue: (
+      state,
+      action: PayloadAction<{ key: keyof FormValues; value: number }>
+    ) => {
+      const { key, value } = action.payload;
+      const { min, max } = formMinMaxValues[key];
+      state.form[key] = clamp(value, min, max);
+    },
   },
 });
 
-export const { startNewGame, move } = gameLogicSlice.actions;
+export const { startNewGame, move, updateFormValue } = gameLogicSlice.actions;
 
 export const selectGameState = (state: RootState) =>
   state.gameLogicReducer.gridState;
+
+export const selectForm = (state: RootState) => state.gameLogicReducer.form;
 
 export default gameLogicSlice.reducer;
