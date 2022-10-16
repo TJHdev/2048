@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { startNewGame, move, selectGameState } from "./gameLogicSlice";
+import { startNewGame, move, selectGameState } from "../gameLogicSlice";
 import styles from "./Game.module.css";
 import { useEffect } from "react";
 
@@ -34,20 +34,11 @@ export function Game() {
   return (
     <div>
       <div className={styles.row}>
-        <button
-          className={styles.button}
-          aria-label="New game"
-          onClick={() => dispatch(startNewGame({}))}
-        >
-          New game
-        </button>
-      </div>
-      <div className={styles.row}>
         {gameState.map((row, xIndex) => (
           <div key={`x-${xIndex}`}>
-            {row.map((cell, yIndex) => (
+            {[...row].reverse().map((cell, yIndex) => (
               <div key={`x-${xIndex}-y-${yIndex}`} className={styles.cell}>
-                {cell}
+                {cell !== 0 && cell}
               </div>
             ))}
           </div>

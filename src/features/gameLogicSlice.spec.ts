@@ -1,5 +1,5 @@
 import counterReducer, {
-  CounterState,
+  GameReducerState,
   // increment,
   // decrement,
   // incrementByAmount,

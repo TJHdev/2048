@@ -1,12 +1,13 @@
 import React from "react";
-import logo from "./logo.svg";
-import { Game } from "./features/counter/Game";
+import { Game } from "./features/Game/Game";
 import "./App.css";
+import { GameSettings } from "./features/GameSettings/GameSettings";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <GameSettings />
         <Game />
       </header>
     </div>
