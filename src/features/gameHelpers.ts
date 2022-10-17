@@ -18,7 +18,7 @@ export const combineLine = (line: number[]) => {
         combinedLine[index] = 0;
         lastSummableCellIndex = -1;
         lastSummableCellValue = 0;
-      } else {
+      } else if (cell !== -1) {
         lastSummableCellIndex = index;
         lastSummableCellValue = cell;
       }
@@ -29,17 +29,41 @@ export const combineLine = (line: number[]) => {
 };
 
 export const compressLine = (line: number[]) => {
-  line.forEach((_cell, _index, array) => {
-    const originalLength = array.length;
-    const lineEmptyRemoved = array.filter((cell) => cell !== 0);
+  const originalLength = line.length;
+  const obstacleIndexes = line.reduce((acc, curr, index) => {
+    if (curr === -1) {
+      acc.push(index);
+    }
+    return acc;
+  }, [] as number[]);
+
+  obstacleIndexes.push(originalLength);
+
+  let startSliceIndex = 0;
+
+  const compressedPartialArrays = obstacleIndexes.reduce((acc, index) => {
+    const partialArray = line.slice(startSliceIndex, index);
+    startSliceIndex = index + 1;
+
+    const originalLength = partialArray.length;
+    const lineEmptyRemoved = partialArray.filter((cell) => cell !== 0);
     const newLength = lineEmptyRemoved.length;
     const padLength = originalLength - newLength;
     const pad = new Array(padLength).fill(0);
+    const newLine = lineEmptyRemoved.concat(pad);
 
-    line = lineEmptyRemoved.concat(pad);
-  });
+    acc.push(newLine);
+    return acc;
+  }, [] as number[][]);
 
-  return line;
+  const joinedArrays = compressedPartialArrays.reduce((acc, curr, index) => {
+    if (index === 0) {
+      return acc.concat(curr);
+    }
+    return acc.concat([-1, ...curr]);
+  }, []);
+
+  return joinedArrays;
 };
 
 export const getCellsCount = (grid: GridState, cellValue = 0) => {

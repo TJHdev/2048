@@ -58,12 +58,14 @@ describe("Given combineLine", () => {
     expect(combineLine([0, 0, 0, 2])).toEqual([0, 0, 0, 2]);
   });
 
-  //   it("should COMBINE the numbers in a line correctly with obstacles (-1)", () => {
-  //     expect(combineLine([0, -1, 2])).toEqual([0, -1, 2]);
-  //     expect(combineLine([-1, 2, 2])).toEqual([-1, 4, 0]);
-  //     expect(combineLine([0, 0, -1, -1])).toEqual([0, 0, -1, -1]);
-  //     expect(combineLine([-1, -1, 2, 2])).toEqual([-1, -1, 4, 0]);
-  //   });
+  // it("should COMBINE the numbers in a line correctly with obstacles (-1)", () => {
+  //   expect(combineLine([0, -1, 2])).toEqual([0, -1, 2]);
+  //   expect(combineLine([-1, 2, 2])).toEqual([-1, 4, 0]);
+  //   expect(combineLine([0, 0, -1, -1])).toEqual([0, 0, -1, -1]);
+  //   expect(combineLine([-1, -1, 2, 2])).toEqual([-1, -1, 4, 0]);
+  //   expect(combineLine([2, -1, 2, 0])).toEqual([2, -1, 2, 0]);
+  //   expect(combineLine([2, -1, 0, 2])).toEqual([2, -1, 0, 2]);
+  // });
 });
 
 describe("Given compressLine", () => {
@@ -76,13 +78,14 @@ describe("Given compressLine", () => {
     expect(compressLine([0, 0, 0, 2])).toEqual([2, 0, 0, 0]);
   });
 
-  //   it("should COMPRESS the numbers in a line correctly with obstacles (-1)", () => {
-  //     expect(compressLine([0, -1, 2])).toEqual([0, -1, 2]);
-  //     expect(compressLine([-1, 2, 2])).toEqual([-1, 2, 2]);
-  //     expect(compressLine([0, 0, -1, -1])).toEqual([0, 0, -1, -1]);
-  //     expect(compressLine([-1, -1, 2, 2])).toEqual([-1, -1, 2, 2]);
-  //     expect(compressLine([0, -1, 0, 2])).toEqual([0, -1, 0, 2]);
-  //   });
+  it("should COMPRESS the numbers in a line correctly with obstacles (-1)", () => {
+    expect(compressLine([0, -1, 2])).toEqual([0, -1, 2]);
+    expect(compressLine([-1, 2, 2])).toEqual([-1, 2, 2]);
+    expect(compressLine([0, 0, -1, -1])).toEqual([0, 0, -1, -1]);
+    expect(compressLine([-1, -1, 2, 2])).toEqual([-1, -1, 2, 2]);
+    expect(compressLine([0, -1, 0, 2])).toEqual([0, -1, 2, 0]);
+    expect(compressLine([0, -1, 0, 2, -1])).toEqual([0, -1, 2, 0, -1]);
+  });
 });
 
 describe("Given getAvailableCells", () => {

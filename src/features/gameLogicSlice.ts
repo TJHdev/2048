@@ -18,7 +18,7 @@ export interface GameReducerState {
 
 const initialWidth = 6;
 const initialHeight = 6;
-const initialObstacles = 0;
+const initialObstacles = 2;
 const initialGrid = placeValueInRandomAvailableCell({
   grid: createNewGrid(initialWidth, initialHeight),
   value: 2,
@@ -60,10 +60,20 @@ export const gameLogicSlice = createSlice({
   reducers: {
     startNewGame: (state) => {
       const newGrid = createNewGrid(state.form.width, state.form.height);
-      state.gridState = placeValueInRandomAvailableCell({
+      const gridWithStartingValue = placeValueInRandomAvailableCell({
         grid: newGrid,
         value: 2,
       });
+      const obstacles = new Array(state.form.obstacles).fill(-1);
+      const finalGrid = obstacles.reduce((acc, value) => {
+        return placeValueInRandomAvailableCell({
+          grid: acc,
+          value,
+        });
+      }, gridWithStartingValue);
+
+      state.gridState = finalGrid;
+      state.gameState = GameState.playing;
       state.turnNumber = 1;
     },
 
