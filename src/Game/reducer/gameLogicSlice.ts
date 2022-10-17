@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { isEqual, clamp } from "lodash";
-import { RootState } from "../app/store";
+import { RootState } from "../../app/store";
 import {
   createNewGrid,
   getCellsCount,
   placeValueInRandomAvailableCell,
   updateGridState,
-} from "./gameHelpers";
-import { Direction, GridState, GameState, FormValues } from "./types";
+} from "../utils/gameHelpers";
+import { Direction, GridState, GameState, FormValues } from "../utils/types";
 
 export interface GameReducerState {
   gridState: GridState;
@@ -122,9 +122,6 @@ export const selectGridState = (state: RootState) =>
 
 export const selectGameState = (state: RootState) =>
   state.gameLogicReducer.gameState;
-
-export const selectTurns = (state: RootState) =>
-  state.gameLogicReducer.turnNumber;
 
 export const selectForm = (state: RootState) => state.gameLogicReducer.form;
 

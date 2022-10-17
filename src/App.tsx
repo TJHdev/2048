@@ -1,14 +1,14 @@
 import React from "react";
-import { Game } from "./features/Game/Game";
+import { Grid } from "./Game/Grid/Grid";
 import "./App.css";
-import { GameSettings } from "./features/GameSettings/GameSettings";
+import { GameSettings } from "./Game/GameSettings/GameSettings";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <GameSettings />
-        <Game />
+        <Grid />
       </header>
     </div>
   );

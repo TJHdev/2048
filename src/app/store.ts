@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import gameLogicReducer from "../features/gameLogicSlice";
+import gameLogicReducer from "../Game/reducer/gameLogicSlice";
 
 export const store = configureStore({
   reducer: {

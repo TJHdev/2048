@@ -1,8 +1,12 @@
 import React, { ChangeEvent, KeyboardEvent, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectForm, startNewGame, updateFormValue } from "../gameLogicSlice";
-import styles from "../Game/Game.module.css";
-import { FormKeys } from "../types";
+import {
+  selectForm,
+  startNewGame,
+  updateFormValue,
+} from "../reducer/gameLogicSlice";
+import styles from "../Grid/Grid.module.css";
+import { FormKeys } from "../utils/types";
 
 export const GameSettings = () => {
   const dispatch = useAppDispatch();

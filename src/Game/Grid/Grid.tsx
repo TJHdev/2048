@@ -3,23 +3,21 @@ import {
   move,
   selectGameState,
   selectGridState,
-  selectTurns,
-} from "../gameLogicSlice";
-import styles from "./Game.module.css";
+} from "../reducer/gameLogicSlice";
+import styles from "./Grid.module.css";
 import { useEffect } from "react";
-import { getColour, keyActions } from "../constants";
-import { GameState } from "../types";
+import { getColour, keyActions } from "../utils/constants";
+import { GameState } from "../utils/types";
 
-export function Game() {
+export function Grid() {
   const gridState = useAppSelector(selectGridState);
   const gameState = useAppSelector(selectGameState);
-  const turnNumber = useAppSelector(selectTurns);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (gameState === GameState.won) {
       setTimeout(() => {
-        alert(`You won in ${turnNumber} turns!`);
+        alert(`You won!`);
       }, 100);
     }
     if (gameState === GameState.lost) {
