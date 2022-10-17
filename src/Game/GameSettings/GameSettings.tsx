@@ -1,12 +1,10 @@
 import React, { ChangeEvent, KeyboardEvent, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import {
-  selectForm,
-  startNewGame,
-  updateFormValue,
-} from "../reducer/gameLogicSlice";
-import styles from "../Grid/Grid.module.css";
+import { selectForm, actions } from "../reducer/gameLogicSlice";
+import styles from "./GameSettings.module.css";
 import { FormKeys } from "../utils/types";
+
+const { startNewGame, updateFormValue } = actions;
 
 export const GameSettings = () => {
   const dispatch = useAppDispatch();
@@ -34,7 +32,7 @@ export const GameSettings = () => {
         <input
           name="width"
           className={styles.textbox}
-          aria-label="Width"
+          aria-label="width"
           onChange={onChange}
           onKeyDown={onKeyDown}
           value={width}

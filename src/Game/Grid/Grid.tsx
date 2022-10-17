@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
-  move,
+  actions,
   selectGameState,
   selectGridState,
 } from "../reducer/gameLogicSlice";
@@ -8,6 +8,8 @@ import styles from "./Grid.module.css";
 import { useEffect } from "react";
 import { getColour, keyActions } from "../utils/constants";
 import { GameState } from "../utils/types";
+
+const { move } = actions;
 
 export function Grid() {
   const gridState = useAppSelector(selectGridState);
@@ -47,21 +49,20 @@ export function Grid() {
 
   return (
     <div className={styles.game_container}>
-      <div className={styles.row}>
-        {gridState.map((row, xIndex) => (
-          <div key={`x-${xIndex}`}>
-            {[...row].reverse().map((cell, yIndex) => (
-              <div
-                style={{ backgroundColor: getColour(cell) }}
-                key={`x-${xIndex}-y-${yIndex}`}
-                className={cell === -1 ? styles.obstacle : styles.cell}
-              >
-                {cell !== 0 && cell !== -1 && cell}
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
+      {gridState.map((row, xIndex) => (
+        <div key={`x-${xIndex}`}>
+          {[...row].reverse().map((cell, yIndex) => (
+            <div
+              style={{ backgroundColor: getColour(cell) }}
+              key={`x-${xIndex}-y-${yIndex}`}
+              data-testid={`x-${xIndex}-y-${yIndex}`}
+              className={cell === -1 ? styles.obstacle : styles.cell}
+            >
+              {cell !== 0 && cell !== -1 && cell}
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }

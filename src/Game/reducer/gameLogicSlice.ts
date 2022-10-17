@@ -30,7 +30,7 @@ const formMinMaxValues = {
   obstacles: { min: 0, max: 4 },
 };
 
-const initialState: GameReducerState = {
+export const initialState: GameReducerState = {
   gridState: initialGrid,
   turnNumber: 1,
   gameState: GameState.playing,
@@ -115,7 +115,7 @@ export const gameLogicSlice = createSlice({
   },
 });
 
-export const { startNewGame, move, updateFormValue } = gameLogicSlice.actions;
+export const actions = gameLogicSlice.actions;
 
 export const selectGridState = (state: RootState) =>
   state.gameLogicReducer.gridState;
