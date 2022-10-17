@@ -87,18 +87,7 @@ export const gameLogicSlice = createSlice({
 
       const hasNoAvailableCells = getCellsCount(finalGrid) === 0;
       if (hasNoAvailableCells) {
-        const directions = ["up", "down", "left", "right"] as const;
-
-        const noAvailableMoves = directions.every((direction) => {
-          return isEqual(
-            finalGrid,
-            updateGridState({ direction, grid: finalGrid })
-          );
-        });
-
-        if (noAvailableMoves) {
-          state.gameState = GameState.lost;
-        }
+        state.gameState = GameState.lost;
       }
 
       return state;
