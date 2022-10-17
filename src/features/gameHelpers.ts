@@ -18,7 +18,10 @@ export const combineLine = (line: number[]) => {
         combinedLine[index] = 0;
         lastSummableCellIndex = -1;
         lastSummableCellValue = 0;
-      } else if (cell !== -1) {
+      } else if (cell === -1) {
+        lastSummableCellIndex = -1;
+        lastSummableCellValue = 0;
+      } else {
         lastSummableCellIndex = index;
         lastSummableCellValue = cell;
       }

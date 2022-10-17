@@ -18,33 +18,20 @@ export interface GameReducerState {
 
 const initialWidth = 6;
 const initialHeight = 6;
-const initialObstacles = 2;
+const initialObstacles = 0;
 const initialGrid = placeValueInRandomAvailableCell({
   grid: createNewGrid(initialWidth, initialHeight),
   value: 2,
 });
 
 const formMinMaxValues = {
-  width: { min: 4, max: 10 },
-  height: { min: 4, max: 10 },
+  width: { min: 3, max: 10 },
+  height: { min: 3, max: 10 },
   obstacles: { min: 0, max: 4 },
 };
 
 const initialState: GameReducerState = {
-  // gridState: [
-  //   [0, 2, 2, 2, 2, 0],
-  //   [0, 0, 0, 0, 0, 0],
-  //   [0, 2, 0, 2, 0, 0],
-  //   [0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0],
-  // ],
-  gridState: [
-    [1, 256, 4],
-    [128, 0, 8],
-    [64, 32, 16],
-  ],
-  // gridState: initialGrid,
+  gridState: initialGrid,
   turnNumber: 1,
   gameState: GameState.playing,
   form: {
@@ -130,8 +117,14 @@ export const gameLogicSlice = createSlice({
 
 export const { startNewGame, move, updateFormValue } = gameLogicSlice.actions;
 
-export const selectGameState = (state: RootState) =>
+export const selectGridState = (state: RootState) =>
   state.gameLogicReducer.gridState;
+
+export const selectGameState = (state: RootState) =>
+  state.gameLogicReducer.gameState;
+
+export const selectTurns = (state: RootState) =>
+  state.gameLogicReducer.turnNumber;
 
 export const selectForm = (state: RootState) => state.gameLogicReducer.form;
 

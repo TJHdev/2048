@@ -11,6 +11,7 @@ export const getColour = (value: number) => {
 };
 
 const colorMap = {
+  "-1": [130, 0, 0],
   0: [202, 196, 200],
   2: [190, 196, 230],
   4: [170, 170, 230],

@@ -58,14 +58,14 @@ describe("Given combineLine", () => {
     expect(combineLine([0, 0, 0, 2])).toEqual([0, 0, 0, 2]);
   });
 
-  // it("should COMBINE the numbers in a line correctly with obstacles (-1)", () => {
-  //   expect(combineLine([0, -1, 2])).toEqual([0, -1, 2]);
-  //   expect(combineLine([-1, 2, 2])).toEqual([-1, 4, 0]);
-  //   expect(combineLine([0, 0, -1, -1])).toEqual([0, 0, -1, -1]);
-  //   expect(combineLine([-1, -1, 2, 2])).toEqual([-1, -1, 4, 0]);
-  //   expect(combineLine([2, -1, 2, 0])).toEqual([2, -1, 2, 0]);
-  //   expect(combineLine([2, -1, 0, 2])).toEqual([2, -1, 0, 2]);
-  // });
+  it("should COMBINE the numbers in a line correctly with obstacles (-1)", () => {
+    expect(combineLine([0, -1, 2])).toEqual([0, -1, 2]);
+    expect(combineLine([-1, 2, 2])).toEqual([-1, 4, 0]);
+    expect(combineLine([0, 0, -1, -1])).toEqual([0, 0, -1, -1]);
+    expect(combineLine([-1, -1, 2, 2])).toEqual([-1, -1, 4, 0]);
+    expect(combineLine([2, -1, 2, 0])).toEqual([2, -1, 2, 0]);
+    expect(combineLine([2, -1, 0, 2])).toEqual([2, -1, 0, 2]);
+  });
 });
 
 describe("Given compressLine", () => {

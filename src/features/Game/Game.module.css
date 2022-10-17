@@ -28,6 +28,11 @@
   align-items: center;
 }
 
+.obstacle {
+  composes: cell;
+  box-shadow: 1px 1px 3px 1px black;
+}
+
 .row > button {
   margin-left: 4px;
   margin-right: 8px;
