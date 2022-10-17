@@ -1,3 +1,4 @@
+import { cloneDeep } from "lodash";
 import { Direction, GridState } from "./types";
 
 export const createNewGrid = (width = 6, height = 6) => {
@@ -41,12 +42,12 @@ export const compressLine = (line: number[]) => {
   return line;
 };
 
-export const getAvailableCells = (grid: GridState) => {
+export const getCellsCount = (grid: GridState, cellValue = 0) => {
   let emptyCells = 0;
 
   grid.forEach((row) =>
     row.forEach((cell) => {
-      if (cell === 0) {
+      if (cell === cellValue) {
         emptyCells++;
       }
     })
@@ -83,7 +84,7 @@ export const placeValueInRandomAvailableCell = ({
   grid: GridState;
   value: number;
 }) => {
-  const availableCells = getAvailableCells(grid);
+  const availableCells = getCellsCount(grid);
   const cellPositionToPlace = Math.floor(Math.random() * availableCells);
   return placeNumberInAvailableCellNumber(grid, cellPositionToPlace, value);
 };
@@ -156,4 +157,28 @@ export const getRotatedGrid = ({
     // direction === right
     return reverse ? rotate270(grid) : rotate90(grid);
   }
+};
+
+export const updateGridState = ({
+  direction,
+  grid,
+}: {
+  direction: Direction;
+  grid: GridState;
+}) => {
+  const rotatedGrid = getRotatedGrid({ direction, grid: cloneDeep(grid) });
+
+  const newGrid = rotatedGrid.map((line) => {
+    const combinedLine = combineLine(line);
+    const compressedLine = compressLine(combinedLine);
+    return compressedLine;
+  });
+
+  const originalOrientationGrid = getRotatedGrid({
+    direction,
+    grid: newGrid,
+    reverse: true,
+  });
+
+  return originalOrientationGrid;
 };

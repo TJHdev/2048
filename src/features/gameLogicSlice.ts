@@ -2,11 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { isEqual, clamp } from "lodash";
 import { RootState } from "../app/store";
 import {
-  combineLine,
-  compressLine,
   createNewGrid,
-  getRotatedGrid,
+  getCellsCount,
   placeValueInRandomAvailableCell,
+  updateGridState,
 } from "./gameHelpers";
 import { Direction, GridState, GameState, FormValues } from "./types";
 
@@ -17,9 +16,9 @@ export interface GameReducerState {
   form: FormValues;
 }
 
-const initialObstacles = 0;
 const initialWidth = 6;
 const initialHeight = 6;
+const initialObstacles = 0;
 const initialGrid = placeValueInRandomAvailableCell({
   grid: createNewGrid(initialWidth, initialHeight),
   value: 2,
@@ -40,12 +39,12 @@ const initialState: GameReducerState = {
   //   [0, 0, 0, 0, 0, 0],
   //   [0, 0, 0, 0, 0, 0],
   // ],
-  // gridState: [
-  //   [0, 2, 2],
-  //   [0, 0, 0],
-  //   [0, 2, 0],
-  // ],
-  gridState: initialGrid,
+  gridState: [
+    [1, 256, 4],
+    [128, 0, 8],
+    [64, 32, 16],
+  ],
+  // gridState: initialGrid,
   turnNumber: 1,
   gameState: GameState.playing,
   form: {
@@ -69,28 +68,42 @@ export const gameLogicSlice = createSlice({
     },
 
     move: (state, action: PayloadAction<Direction>) => {
+      if (state.gameState !== GameState.playing) return;
       const direction = action.payload;
-      const rotatedGrid = getRotatedGrid({ direction, grid: state.gridState });
 
-      const newGrid = rotatedGrid.map((line) => {
-        const combinedLine = combineLine(line);
-        const compressedLine = compressLine(combinedLine);
-        return compressedLine;
+      const updatedGrid = updateGridState({ direction, grid: state.gridState });
+
+      if (isEqual(state.gridState, updatedGrid)) return;
+
+      const finalGrid = placeValueInRandomAvailableCell({
+        grid: updatedGrid,
+        value: 2,
       });
 
-      const originalOrientationGrid = getRotatedGrid({
-        direction,
-        grid: newGrid,
-        reverse: true,
-      });
+      state.gridState = finalGrid;
+      state.turnNumber++;
 
-      if (!isEqual(state.gridState, originalOrientationGrid)) {
-        state.gridState = placeValueInRandomAvailableCell({
-          grid: originalOrientationGrid,
-          value: 2,
-        });
-        state.turnNumber++;
+      const playHasWon = getCellsCount(finalGrid, 2048) > 0;
+      if (playHasWon) {
+        state.gameState = GameState.won;
       }
+
+      const hasNoAvailableCells = getCellsCount(finalGrid) === 0;
+      if (hasNoAvailableCells) {
+        const directions = ["up", "down", "left", "right"] as const;
+
+        const noAvailableMoves = directions.every((direction) => {
+          return isEqual(
+            finalGrid,
+            updateGridState({ direction, grid: finalGrid })
+          );
+        });
+
+        if (noAvailableMoves) {
+          state.gameState = GameState.lost;
+        }
+      }
+
       return state;
     },
 

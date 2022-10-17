@@ -2,7 +2,7 @@ import {
   createNewGrid,
   combineLine,
   compressLine,
-  getAvailableCells,
+  getCellsCount,
   placeNumberInAvailableCellNumber,
   placeValueInRandomAvailableCell,
   rotate90,
@@ -88,7 +88,7 @@ describe("Given compressLine", () => {
 describe("Given getAvailableCells", () => {
   it("should find the correct number for available cells", () => {
     expect(
-      getAvailableCells([
+      getCellsCount([
         [0, 2, 2],
         [0, 0, 0],
         [0, 0, 0],
@@ -96,7 +96,7 @@ describe("Given getAvailableCells", () => {
     ).toEqual(7);
 
     expect(
-      getAvailableCells([
+      getCellsCount([
         [2, 2, 2],
         [2, 2, 2],
         [2, 2, 2],
@@ -104,7 +104,7 @@ describe("Given getAvailableCells", () => {
     ).toEqual(0);
 
     expect(
-      getAvailableCells([
+      getCellsCount([
         [0, 0, 0],
         [0, 0, 0],
         [0, 0, 0],
@@ -113,7 +113,7 @@ describe("Given getAvailableCells", () => {
     ).toEqual(12);
 
     expect(
-      getAvailableCells([
+      getCellsCount([
         [4, 4, 4],
         [4, 4, 4],
         [4, 4, 4],
@@ -122,7 +122,7 @@ describe("Given getAvailableCells", () => {
     ).toEqual(0);
 
     expect(
-      getAvailableCells([
+      getCellsCount([
         [0, 4, 4],
         [4, 4, 4],
         [4, 4, 4],

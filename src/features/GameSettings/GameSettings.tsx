@@ -26,7 +26,7 @@ export const GameSettings = () => {
   return (
     <div className={styles.container}>
       <div className={styles.row}>
-        <label style={{ width: "160px" }}>Width </label>
+        <label className={styles.label}>Width</label>
         <input
           name="width"
           className={styles.textbox}
@@ -38,7 +38,7 @@ export const GameSettings = () => {
         />
       </div>
       <div className={styles.row}>
-        <label style={{ width: "160px" }}>Height </label>
+        <label className={styles.label}>Height</label>
         <input
           name="height"
           className={styles.textbox}
@@ -50,7 +50,7 @@ export const GameSettings = () => {
         />
       </div>
       <div className={styles.row}>
-        <label style={{ width: "160px" }}>Obstacles </label>
+        <label className={styles.label}>Obstacles</label>
         <input
           name="obstacles"
           className={styles.textbox}
